@@ -1,5 +1,5 @@
 Name:           vulkan-tools
-Version:        1.3.239.0
+Version:        1.3.250.1
 Release:        1%{?dist}
 Summary:        Vulkan tools
 
@@ -47,6 +47,9 @@ Vulkan tools
 %{_bindir}/*
 
 %changelog
+* Fri Jul 07 2023 Dave Airlie <airlied@redhat.com> - 1.3.250.1-1
+- Update to 1.3.250.1
+
 * Wed Feb 15 2023 Dave Airlie <airlied@redhat.com> - 1.3.239.0-1
 - Update to 1.3.239.0
 
