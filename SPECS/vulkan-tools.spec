@@ -1,11 +1,11 @@
 Name:           vulkan-tools
-Version:        1.3.250.1
+Version:        1.3.268.0
 Release:        1%{?dist}
 Summary:        Vulkan tools
 
 License:        ASL 2.0
 URL:            https://github.com/KhronosGroup/Vulkan-Tools
-Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-Tools-sdk-%{version}.tar.gz       
+Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Tools-sdk-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -30,7 +30,7 @@ Obsoletes:      vulkan-demos < %{version}-%{release}
 Vulkan tools
 
 %prep
-%autosetup -n Vulkan-Tools-sdk-%{version} -p1
+%autosetup -n Vulkan-Tools-vulkan-sdk-%{version} -p1
 
 
 %build
@@ -47,6 +47,9 @@ Vulkan tools
 %{_bindir}/*
 
 %changelog
+* Wed Jan 17 2024 José Expósito <jexposit@redhat.com> - 1.3.268.0-1
+- Update to 1.3.268.0 SDK
+
 * Fri Jul 07 2023 Dave Airlie <airlied@redhat.com> - 1.3.250.1-1
 - Update to 1.3.250.1
 
