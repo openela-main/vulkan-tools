@@ -1,15 +1,15 @@
 Name:           vulkan-tools
-Version:        1.3.250.1
-Release:        1%{?dist}
+Version:        1.3.283.0
+Release:        2%{?dist}
 Summary:        Vulkan tools
 
 License:        ASL 2.0
 URL:            https://github.com/KhronosGroup/Vulkan-Tools
-Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-Tools-sdk-%{version}.tar.gz       
+Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Tools-sdk-%{version}.tar.gz       
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
+BuildRequires:  cmake3
 BuildRequires:  glslang
 BuildRequires:  ninja-build
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -26,20 +26,36 @@ BuildRequires:  pkgconfig(xcb)
 Provides:       vulkan-demos%{?_isa} = %{version}-%{release}
 Obsoletes:      vulkan-demos < %{version}-%{release}
 
+# vulkan-volk is required but not available in CentOS/RHEL 8
+Source1:        https://github.com/zeux/volk/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Volk-sdk-%{version}.tar.gz
+BuildRequires:  vulkan-headers
+
+
 %description
 Vulkan tools
 
 %prep
-%autosetup -n Vulkan-Tools-sdk-%{version}
+%autosetup -n Vulkan-Tools-vulkan-sdk-%{version} -p1
+
+# Extract vulkan-volk in "volk"
+mkdir -p volk
+tar -xvf %{SOURCE1} -C volk --strip-components=1
 
 
 %build
-%cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DGLSLANG_INSTALL_DIR=%{_prefix} .
-%ninja_build
+# vulkan-volk can't be compiled and linked because it contains .a libraries and
+# check-buildroot would complain about debug symbols containing
+# "/builddir/build/BUILDROOT" paths.
+# Instead, add vulkan-volk as a subproject
+echo "add_subdirectory(volk)" >> CMakeLists.txt
+
+%cmake3 -GNinja -DCMAKE_BUILD_TYPE=Release -DGLSLANG_INSTALL_DIR=%{_prefix} \
+        -DCMAKE_CXX_STANDARD_LIBRARIES="-lstdc++fs"
+%cmake3_build
 
 
 %install
-%ninja_install
+%cmake3_install
 
 %files
 %license LICENSE.txt
@@ -47,6 +63,14 @@ Vulkan tools
 %{_bindir}/*
 
 %changelog
+* Fri Sep 13 2024 José Expósito <jexposit@redhat.com> - 1.3.283.0-2
+- Link stdc++fs
+  Resolves: https://issues.redhat.com/browse/RHEL-54288
+
+* Wed Sep 11 2024 José Expósito <jexposit@redhat.com> - 1.3.283.0-1
+- Update to 1.3.283.0 SDK
+  Resolves: https://issues.redhat.com/browse/RHEL-54288
+
 * Wed Jul 12 2023 Dave Airlie <airlied@redhat.com> - 1.3.250.1-1
 - Update to 1.3.250.1
 
