@@ -1,11 +1,11 @@
 Name:           vulkan-tools
-Version:        1.3.268.0
+Version:        1.3.283.0
 Release:        1%{?dist}
 Summary:        Vulkan tools
 
 License:        ASL 2.0
 URL:            https://github.com/KhronosGroup/Vulkan-Tools
-Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Tools-sdk-%{version}.tar.gz
+Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Tools-sdk-%{version}.tar.gz       
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -14,6 +14,8 @@ BuildRequires:  glslang
 BuildRequires:  ninja-build
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  vulkan-loader-devel
+BuildRequires:  vulkan-volk-devel
+BuildRequires:  vulkan-volk-static
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
@@ -47,6 +49,9 @@ Vulkan tools
 %{_bindir}/*
 
 %changelog
+* Tue May 28 2024 José Expósito <jexposit@redhat.com> - 1.3.283.0-1
+- Update to 1.3.283.0 SDK
+
 * Wed Jan 17 2024 José Expósito <jexposit@redhat.com> - 1.3.268.0-1
 - Update to 1.3.268.0 SDK
 
