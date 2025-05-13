@@ -1,5 +1,5 @@
 Name:           vulkan-tools
-Version:        1.3.283.0
+Version:        1.4.304.0
 Release:        1%{?dist}
 Summary:        Vulkan tools
 
@@ -49,6 +49,9 @@ Vulkan tools
 %{_bindir}/*
 
 %changelog
+* Mon Jan 20 2025 José Expósito <jexposit@redhat.com> - 1.4.304.0-1
+- Update to 1.4.304.0 SDK
+
 * Tue May 28 2024 José Expósito <jexposit@redhat.com> - 1.3.283.0-1
 - Update to 1.3.283.0 SDK
 
