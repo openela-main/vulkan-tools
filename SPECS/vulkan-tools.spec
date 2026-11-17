@@ -1,5 +1,5 @@
 Name:           vulkan-tools
-Version:        1.4.328.1
+Version:        1.4.341.0
 Release:        1%{?dist}
 Summary:        Vulkan tools
 
@@ -9,7 +9,7 @@ Source0:        %url/archive/vulkan-sdk-%{version}.tar.gz#/Vulkan-Tools-sdk-%{ve
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  glslang
 BuildRequires:  ninja-build
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -36,12 +36,12 @@ Vulkan tools
 
 
 %build
-%cmake3 -GNinja -DCMAKE_BUILD_TYPE=Release -DGLSLANG_INSTALL_DIR=%{_prefix}
-%cmake3_build
+%cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DGLSLANG_INSTALL_DIR=%{_prefix}
+%cmake_build
 
 
 %install
-%cmake3_install
+%cmake_install
 
 %files
 %license LICENSE.txt
@@ -49,6 +49,9 @@ Vulkan tools
 %{_bindir}/*
 
 %changelog
+* Thu May 21 2026 Anusha Srivatsa <asrivats@redhat.com> - 1.4.341.0-1
+- Update to 1.4.341.0 SDK
+
 * Thu 08 2026 José Expósito <jexposit@redhat.com> - 1.4.328.1-1
 - Update to 1.4.328.1 SDK
 
